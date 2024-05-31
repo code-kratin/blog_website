@@ -7,7 +7,7 @@ Blog Website
 3. Change Password feature
 4. Date-Time added in Blogs
 5. Blog connected to Users through Author Field
-6. Contact page view to send mail via django smtp
+6. **Contact page view **to send mail via django smtp
 
 
 
