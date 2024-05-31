@@ -1,0 +1,98 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}PROFILE{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row mt-5 pt-3">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow my-3 ">
+                <div class="card-body">
+                    <span class="h4">Profile Page</span>
+                    <span class="float-right">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            Edit Profile
+                          </button>
+                    </span>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                          {% comment %} <img src="{{ MEDIA_URL }}profile/Screenshot_2024-05-22_000845.png" alt="profile-img"> {% endcomment %}
+                            <img src="{{ profile.image.url }}" alt="profile-img">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>Username: {{user.username}}</h4>
+                            <h4>Name: {{user.first_name}} {{user.last_name}}</h4>
+                            <h4>Email: {{user.email}}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Profile Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            {% if user_form.errors %}
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+    <div class="form-content">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="small mb-1">Username:</label>
+                            {{ user_form.username }}
+                        <label class="small mb-1">Email:</label>
+                            {{ user_form.email }}
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url 'changepassword' %}">Change Password</a>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+        </form>
+            {% if form.errors %}
+              <ul class="errorlist">
+                {% for error in form.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

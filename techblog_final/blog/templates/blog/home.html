@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}TECH BLOG{% endblock title %}
+{% block content %}
+<div class="col-sm-10">
+    <h1 class="text-center alert alert-primary">TECH BLOG HOME PAGE</h1>
+    {% for blog in blogs %}
+    <div class= "jumbotron jumbotron-fluid jumbo-color">
+        <div class="container">
+            <h3 class="display-4 font-weight-bold">{{ blog.title }}</h3>
+            <p class="lead text-dark">{{ blog.cont }}</p>
+            <p class="display-5 lead text-dark">{{ blog.updated_at }}</p>
+            <p class="display-5 lead text-dark">-{{ blog.author.username }}</p>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
